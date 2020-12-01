@@ -1,0 +1,40 @@
+'''Algorithm for accurate adding positive decimals in Python'''
+
+def plus(*args):
+    values_list = list(map(shift_point, args))
+    int_sum = sum([int(args[0]) for args in values_list])
+
+    flt_value = [args[1] for args in values_list]
+    max_len = len(max(flt_value, key=len))
+    flt_value = list(map(lambda x: x.ljust(max_len, '0'), flt_value))
+    flt_sum = sum([int(i) for i in flt_value])
+
+    flt_remainder = str(flt_sum)
+    if len(flt_remainder) < max_len:
+        flt_remainder = flt_remainder.zfill(max_len)
+    int_remainder = 0
+    if len(str(flt_sum)) > len(flt_value[0]):
+        length = len(flt_value[0])
+        flt_remainder = str(flt_sum)[-length:]
+        int_remainder = int(str(flt_sum)[:-length])
+    if flt_remainder[-1] == '0':
+        flt_remainder = flt_remainder.rstrip('0')
+    if len(flt_remainder) == 0:
+        flt_remainder = '0'
+
+    int_sum += int_remainder
+    total_sum = '.'.join([str(int_sum), flt_remainder])
+
+    return total_sum
+    
+    p_sum = plus('0.1974057405047365075074', '0.1974057405047365075075')
+p_sum_1 = plus('0.1', '0.2')
+p_sum_2 = plus('0.1', '0.0500')
+
+print(p_sum) # 0.3948114810094730150149
+print(p_sum_1) # 0.3
+print(p_sum_2) # 0.15
+
+print(0.1974057405047365075074 + 0.1974057405047365075075) # 0.394811481009473
+print(0.1 + 0.2) # 0.30000000000000004
+print(0.1 + 0.0500) # 0.15000000000000002
