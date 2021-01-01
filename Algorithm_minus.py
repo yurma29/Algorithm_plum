@@ -8,7 +8,7 @@ def shift_point_m(arg):
 
 def minus(*args):
     values_list = list(map(shift_point_m, args))
-    int_sum = sum([int(args[0]) for args in values_list])*-1
+    int_sum = sum([int(args[0]) for args in values_list]) * -1
 
     flt_value = [args[1] for args in values_list]
     max_len = len(max(flt_value, key=len))
